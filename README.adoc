@@ -1,0 +1,4 @@
+= Spike-DISASM
+This is a CMake-ized version of the Spike RISC-V simulator's disassembler.
+
+See https://github.com/riscv-software-src/riscv-isa-sim
