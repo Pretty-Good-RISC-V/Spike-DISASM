@@ -4,6 +4,10 @@
 TEST_CASE( "Simple disassembly test", "[disassembly]" ) {
     auto disassembler = disassembler_t(32);
 
+    const uint64_t u = 0xee800000;
+    const int64_t s = (int32_t)u >> 20;
+    REQUIRE(s == -280); 
+
     const uint32_t instructionBits = 0xee828293;
     insn_t instruction(instructionBits);
     auto disassembly = disassembler.disassemble(instruction);

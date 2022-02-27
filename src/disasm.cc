@@ -98,7 +98,8 @@ struct : public arg_t {
 
 struct : public arg_t {
   std::string to_string(insn_t insn) const {
-    return std::to_string((int)insn.i_imm());
+    int64_t immediate = insn.i_imm();
+    return std::to_string((int)immediate);
   }
 } imm;
 
