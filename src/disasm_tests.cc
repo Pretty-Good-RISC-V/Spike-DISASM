@@ -23,4 +23,11 @@ TEST_CASE( "Simple disassembly test", "[disassembly]" ) {
         auto disassembly = disassembler.disassemble(instruction);
         REQUIRE(disassembly == "bne     t0, s1, pc - 52");
     }
+
+    {
+        const uint32_t instructionBits = 0xed9ff06f;
+        insn_t instruction(instructionBits);
+        auto disassembly = disassembler.disassemble(instruction);
+        REQUIRE(disassembly == "j       pc - 0x128");
+    }    
 }

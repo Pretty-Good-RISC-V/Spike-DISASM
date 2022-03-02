@@ -125,10 +125,11 @@ struct : public arg_t {
 
 struct : public arg_t {
   std::string to_string(insn_t insn) const {
+    std::stringstream s;
     int32_t target = insn.sb_imm();
-    std::string s = target >= 0 ? "pc + " : "pc - ";
-    s += std::to_string(abs(target));
-    return s;
+    char sign = target >= 0 ? '+' : '-';
+    s << "pc " << sign << " " << std::dec << abs(target);
+    return s.str();
   }
 } branch_target;
 
@@ -260,19 +261,21 @@ struct : public arg_t {
 
 struct : public arg_t {
   std::string to_string(insn_t insn) const {
+    std::stringstream s;
     int32_t target = insn.rvc_b_imm();
-    std::string s = target >= 0 ? "pc + " : "pc - ";
-    s += std::to_string(abs(target));
-    return s;
+    char sign = target >= 0 ? '+' : '-';
+    s << "pc " << sign << " " << std::hex << "0x" << abs(target);
+    return s.str();
   }
 } rvc_branch_target;
 
 struct : public arg_t {
   std::string to_string(insn_t insn) const {
+    std::stringstream s;
     int32_t target = insn.rvc_j_imm();
-    std::string s = target >= 0 ? "pc + " : "pc - ";
-    s += std::to_string(abs(target));
-    return s;
+    char sign = target >= 0 ? '+' : '-';
+    s << "pc " << sign << " " << std::dec << abs(target);
+    return s.str();
   }
 } rvc_jump_target;
 

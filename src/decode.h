@@ -88,7 +88,10 @@ public:
     return (int32_t(t) << 20) >> 20; 
   }
   int64_t u_imm() { return int32_t(b) >> 12 << 12; } // NOTE: int32_t used due to issues on MacOS.
-  int64_t uj_imm() { return (x(21, 10) << 1) + (x(20, 1) << 11) + (x(12, 8) << 12) + (imm_sign() << 20); }
+  int64_t uj_imm() { 
+    const uint64_t t = (x(21, 10) << 1) + (x(20, 1) << 11) + (x(12, 8) << 12) + (imm_sign() << 20);
+    return (int32_t(t) << 20) >> 20;
+  }
   uint64_t rd() { return x(7, 5); }
   uint64_t rs1() { return x(15, 5); }
   uint64_t rs2() { return x(20, 5); }
@@ -109,8 +112,14 @@ public:
   int64_t rvc_sdsp_imm() { return (x(10, 3) << 3) + (x(7, 3) << 6); }
   int64_t rvc_lw_imm() { return (x(6, 1) << 2) + (x(10, 3) << 3) + (x(5, 1) << 6); }
   int64_t rvc_ld_imm() { return (x(10, 3) << 3) + (x(5, 2) << 6); }
-  int64_t rvc_j_imm() { return (x(3, 3) << 1) + (x(11, 1) << 4) + (x(2, 1) << 5) + (x(7, 1) << 6) + (x(6, 1) << 7) + (x(9, 2) << 8) + (x(8, 1) << 10) + (xs(12, 1) << 11); }
-  int64_t rvc_b_imm() { return (x(3, 2) << 1) + (x(10, 2) << 3) + (x(2, 1) << 5) + (x(5, 2) << 6) + (xs(12, 1) << 8); }
+  int64_t rvc_j_imm() { 
+    const uint64_t t = (x(3, 3) << 1) + (x(11, 1) << 4) + (x(2, 1) << 5) + (x(7, 1) << 6) + (x(6, 1) << 7) + (x(9, 2) << 8) + (x(8, 1) << 10) + (xs(12, 1) << 11);
+    return (int32_t(t) << 20) >> 20;
+  }
+  int64_t rvc_b_imm() { 
+    const uint64_t t = (x(3, 2) << 1) + (x(10, 2) << 3) + (x(2, 1) << 5) + (x(5, 2) << 6) + (xs(12, 1) << 8); 
+    return (int32_t(t) << 20) >> 20;
+  }
   int64_t rvc_simm3() { return x(10, 3); }
   uint64_t rvc_rd() { return rd(); }
   uint64_t rvc_rs1() { return rd(); }
