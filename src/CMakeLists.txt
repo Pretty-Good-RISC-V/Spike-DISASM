@@ -13,15 +13,19 @@ set_target_properties(spike_disasm PROPERTIES CXX_STANDARD 17)
 
 Include(FetchContent)
 
+set(CATCH_VERSION "3.0.1")
+string(REPLACE "." "_" CATCH_VERSION_UNDERSCORES ${CATCH_VERSION})
+set(CATCH_FETCH_PROJECT_NAME "Catch2_${CATCH_VERSION_UNDERSCORES}")
+
 FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.0.0-preview4
+    ${CATCH_FETCH_PROJECT_NAME}
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        "v${CATCH_VERSION}"
 )
 
-FetchContent_MakeAvailable(Catch2)
+FetchContent_MakeAvailable(${CATCH_FETCH_PROJECT_NAME})
 
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+list(APPEND CMAKE_MODULE_PATH "${catch2_${CATCH_VERSION_UNDERSCORES}_SOURCE_DIR}/extras")
 
 include(CTest)
 include(Catch)
